@@ -138,10 +138,10 @@ main{ position:relative; z-index:10; }
 .lede{ font-family:var(--mono); font-size:13px; line-height:1.85; color:var(--muted); max-width:560px; margin-top:22px; }
 
 /* ── HERO ── */
-#hero{ position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:center; overflow:hidden; }
+#hero{ position:relative; min-height:100vh; overflow:hidden; }
 #net{ position:absolute; inset:0; width:100%; height:100%; z-index:0; opacity:0; transition:opacity 1.1s ease; -webkit-mask-image:radial-gradient(120% 100% at 60% 40%, #000 38%, transparent 78%); mask-image:radial-gradient(120% 100% at 60% 40%, #000 38%, transparent 78%); }
 #net.on{ opacity:1; }
-.hero-wrap{ position:relative; z-index:2; max-width:var(--maxw); margin:0 auto; width:100%; padding:0 var(--pad); }
+.hero-wrap{ position:relative; z-index:2; max-width:var(--maxw); margin:0 auto; width:100%; min-height:100vh; padding:0 var(--pad); display:flex; flex-direction:column; justify-content:center; }
 .hero-eyebrow{ font-family:var(--mono); font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--teal); margin-bottom:26px; display:flex; align-items:center; gap:14px; opacity:0; }
 .hero-eyebrow::before{ content:''; width:34px; height:1px; background:var(--teal); display:block; }
 .hero-h1{ font-size:clamp(54px,9.4vw,130px); font-weight:800; letter-spacing:-4px; line-height:.9; margin-bottom:30px; }
@@ -327,4 +327,9 @@ html[data-lang="ru"] .en{ display:none; }
 }
 @media (max-width:480px){
   .pgrid,.mgrid,.stack-groups{ grid-template-columns:1fr; }
+}
+
+/* keep the HUD from colliding with centered hero content on very short viewports */
+@media (max-height: 640px){
+  .hud{ display:none; }
 }
