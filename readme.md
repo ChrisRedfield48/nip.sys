@@ -1,15 +1,28 @@
 <div align="center">
 
-<img src="banner.svg" alt="NIP // Latent Space — Nikita Ip" width="100%" />
+<pre>
+███╗   ██╗  ██╗  ██████╗
+████╗  ██║  ██║  ██╔══██╗
+██╔██╗ ██║  ██║  ██████╔╝
+██║╚██╗██║  ██║  ██╔═══╝
+██║ ╚████║  ██║  ██║
+╚═╝  ╚═══╝  ╚═╝  ╚═╝
+</pre>
 
-<br/><br/>
+## NIP // latent
+
+**Web developer training to be an ML engineer**
+
+`JavaScript` → `Python` → `Neural Networks` · Russia → Belgrade → EU
+
+<br/>
 
 ![Open to work](https://img.shields.io/badge/open_to_work-54c469?style=flat-square&labelColor=080b12)
 ![Status](https://img.shields.io/badge/status-live-1f9e8f?style=flat-square&labelColor=080b12)
 ![Dependencies](https://img.shields.io/badge/dependencies-0-3f7fb0?style=flat-square&labelColor=080b12)
 ![i18n](https://img.shields.io/badge/i18n-RU_%2F_EN-7c4dbe?style=flat-square&labelColor=080b12)
 
-[![Live demo](https://img.shields.io/badge/live_demo-1f9e8f?style=for-the-badge&logo=githubpages&logoColor=white&labelColor=080b12)](https://chrisredfield48.github.io/)
+[![Live demo](https://img.shields.io/badge/live_demo-1f9e8f?style=for-the-badge&logo=githubpages&logoColor=white&labelColor=080b12)](https://chrisredfield48.github.io/nip-latent/)
 [![Telegram](https://img.shields.io/badge/telegram-3f7fb0?style=for-the-badge&logo=telegram&logoColor=white&labelColor=080b12)](https://t.me/ChrisRedfield48)
 [![GitHub](https://img.shields.io/badge/github-7c4dbe?style=for-the-badge&logo=github&logoColor=white&labelColor=080b12)](https://github.com/ChrisRedfield48)
 
@@ -85,10 +98,9 @@ Personal portfolio of **Nikita Ip** (Chris). I currently build with JavaScript a
 
 ```text
 nip-latent/
-├── index.html      # markup + content (RU/EN)
-├── style.css       # viridis theme · layout · animations
-├── script.js       # neural-net canvas · tabs · training curve · i18n
-├── banner.svg      # the banner above
+├── index.html   # markup + content (RU/EN)
+├── style.css    # viridis theme · layout · animations
+├── script.js    # neural-net canvas · tabs · training curve · i18n
 └── README.md
 ```
 
