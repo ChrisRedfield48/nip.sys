@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ru" data-lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>NIP // Latent Space — Nikita Ip</title>
+
+<meta name="description" content="Nikita Ip (Chris). Web developer training to be an ML engineer. JavaScript now → Python &amp; neural networks next. Open to work, Russia → Belgrade → EU.">
+<meta name="robots" content="index, follow">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#080b12">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NIP // Latent Space — Nikita Ip">
+<meta property="og:description" content="Web developer training to be an ML engineer. JS → Python → neural networks.">
+
+<link rel="shortcut icon" href="image/2026-06-13 11.20.28.jpg" type="image/x-icon">
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<script>
+  /* set language before paint — no flash */
+  (function () {
+    try {
+      var l = localStorage.getItem('nip.lang');
+      if (!l) l = (navigator.language || 'en').toLowerCase().indexOf('ru') === 0 ? 'ru' : 'en';
+      document.documentElement.setAttribute('data-lang', l);
+      document.documentElement.setAttribute('lang', l);
+    } catch (e) {}
+  })();
+</script>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a href="#projects" class="skip"><span class="ru">К содержимому</span><span class="en">Skip to content</span></a>
+
+<div class="bg"></div>
+<div class="bg-grid"></div>
+<div class="grain"></div>
+<div class="progress" id="progress"></div>
+
+<!-- NAV -->
+<nav id="nav" aria-label="Primary">
+  <a href="#hero" class="logo" aria-label="NIP — home">
+    <span class="dot" aria-hidden="true"></span>NIP<span class="slash">//</span><b>latent</b>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#stack"><span class="ru">Стек</span><span class="en">Stack</span></a></li>
+    <li><a href="#projects"><span class="ru">Проекты</span><span class="en">Projects</span></a></li>
+    <li><a href="#models">Models</a></li>
+    <li><a href="#path"><span class="ru">Путь</span><span class="en">Path</span></a></li>
+    <li><a href="#contact"><span class="ru">Контакт</span><span class="en">Contact</span></a></li>
+  </ul>
+  <div class="controls">
+    <div class="lang" role="group" aria-label="Language">
+      <button class="active" type="button" data-lang="ru" aria-pressed="true">RU</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mmenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mmenu" id="mmenu" aria-hidden="true">
+  <nav aria-label="Mobile">
+    <a href="#stack"><i>01</i><span class="ru">Стек</span><span class="en">Stack</span></a>
+    <a href="#projects"><i>02</i><span class="ru">Проекты</span><span class="en">Projects</span></a>
+    <a href="#models"><i>03</i>Models</a>
+    <a href="#path"><i>04</i><span class="ru">Путь</span><span class="en">Path</span></a>
+    <a href="#contact"><i>05</i><span class="ru">Контакт</span><span class="en">Contact</span></a>
+  </nav>
+  <div class="mfoot">
+    <a href="https://t.me/ChrisRedfield48" target="_blank" rel="noopener noreferrer">Telegram</a>
+    <a href="https://github.com/ChrisRedfield48" target="_blank" rel="noopener noreferrer">GitHub</a>
+  </div>
+</div>
+
+<!-- PAGE DOTS -->
+<div class="dots" id="pageDots" aria-label="Section navigation">
+  <button class="active" type="button" data-target="hero" aria-label="Intro"></button>
+  <button type="button" data-target="stack" aria-label="Stack"></button>
+  <button type="button" data-target="projects" aria-label="Projects"></button>
+  <button type="button" data-target="models" aria-label="Models"></button>
+  <button type="button" data-target="path" aria-label="Path"></button>
+  <button type="button" data-target="contact" aria-label="Contact"></button>
+</div>
+
+<main>
+<!-- HERO -->
+<section id="hero">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="hero-wrap">
+    <div class="hero-eyebrow">
+      <span class="ru">Веб-разработчик · учусь на ML-инженера</span>
+      <span class="en">Web developer · training to be an ML engineer</span>
+    </div>
+    <h1 class="hero-h1">
+      <span class="a">Nikita</span>
+      <span class="b">Ip<span class="u">_</span></span>
+    </h1>
+    <p class="hero-sub ru">Сейчас пишу на <span class="k">JavaScript</span>.<br>Следующая эпоха — <span class="k">Python</span> и нейросети.<br>Russia → Belgrade → Europe.</p>
+    <p class="hero-sub en">Currently coding in <span class="k">JavaScript</span>.<br>Next epoch — <span class="k">Python</span> and neural networks.<br>Russia → Belgrade → Europe.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-fill"><span class="ru">Смотреть проекты</span><span class="en">View projects</span><span aria-hidden="true">→</span></a>
+      <a href="#contact" class="btn btn-ghost"><span class="ru">Связаться</span><span class="en">Contact</span></a>
+    </div>
+  </div>
+
+  <div class="hud" aria-hidden="true">
+    <div class="cell"><span class="hk">epoch</span><span class="hv" id="hEpoch">02</span></div>
+    <div class="cell"><span class="hk">loss</span><span class="hv" id="hLoss">0.412 ↓</span></div>
+    <div class="cell"><span class="hk">lr</span><span class="hv">1e-3</span></div>
+    <div class="cell"><span class="hk">status</span><span class="hv run">TRAINING</span></div>
+  </div>
+
+  <div class="scroll-hint"><span class="scroll-line"></span><span class="ru">Скролл</span><span class="en">Scroll</span></div>
+</section>
+
+<!-- STACK -->
+<section id="stack" class="sec">
+  <div class="head reveal">
+    <div class="eyebrow">import · <span class="ru">Стек</span><span class="en">Stack</span></div>
+    <h2 class="title">St<span class="o">ack</span></h2>
+    <p class="lede ru">Фокус — Python и его ML-экосистема. JavaScript — то, на чём я уже пишу. Математику качаю параллельно, без неё в нейросети нечего лезть.</p>
+    <p class="lede en">Focus: Python and its ML ecosystem. JavaScript is what I already build with. Math runs in parallel — no point touching neural nets without it.</p>
+  </div>
+
+  <div class="stack-groups reveal">
+    <!-- core -->
+    <div class="sgroup">
+      <div class="sgroup-label"><span class="ru">Главный фокус</span><span class="en">Core focus</span></div>
+      <div class="sgroup-note ru">куда иду</div><div class="sgroup-note en">where I'm headed</div>
+      <div class="chip lead">
+        <div class="chip-l"><div><div class="chip-name">Python</div><div class="chip-sub ru">основы · скрипты · сети</div><div class="chip-sub en">basics · scripts · networking</div></div></div>
+        <div class="chip-r"><div class="meter" data-level="2"></div><span class="state train">Training</span></div>
+      </div>
+      <div class="chip">
+        <div class="chip-l"><div><div class="chip-name">NumPy</div><div class="chip-sub">arrays · linear algebra</div></div></div>
+        <div class="chip-r"><div class="meter" data-level="1"></div><span class="state queue">Queued</span></div>
+      </div>
+      <div class="chip">
+        <div class="chip-l"><div><div class="chip-name">Pandas</div><div class="chip-sub">dataframes</div></div></div>
+        <div class="chip-r"><div class="meter" data-level="1"></div><span class="state queue">Queued</span></div>
+      </div>
+      <div class="chip">
+        <div class="chip-l"><div><div class="chip-name">PyTorch</div><div class="chip-sub">neural nets</div></div></div>
+        <div class="chip-r"><div class="meter" data-level="0"></div><span class="state lock">Locked</span></div>
+      </div>
+      <div class="chip">
+        <div class="chip-l"><div><div class="chip-name">scikit-learn</div><div class="chip-sub">classic ML</div></div></div>
+        <div class="chip-r"><div class="meter" data-level="0"></div><span class="state lock">Locked</span></div>
+      </div>
+      <div class="chip">
+        <div class="chip-l"><div><div class="chip-name">Jupyter · Matplotlib</div><div class="chip-sub">notebooks · plots</div></div></div>
+        <div class="chip-r"><div class="meter" data-level="1"></div><span class="state queue">Queued</span></div>
+      </div>
+    </div>
+
+    <!-- shipping -->
+    <div class="sgroup">
+      <div class="sgroup-label"><span class="ru">Уже в работе</span><span class="en">Shipping now</span></div>
+      <div class="sgroup-note ru">на чём пишу</div><div class="sgroup-note en">what I build with</div>
+      <div class="chip">
+        <div class="chip-l"><div><div class="chip-name">HTML &amp; CSS</div><div class="chip-sub ru">верстка · адаптив · анимации</div><div class="chip-sub en">layout · responsive · animations</div></div></div>
+        <div class="chip-r"><div class="meter" data-level="4"></div><span class="state run">Running</span></div>
+      </div>
+      <div class="chip">
+        <div class="chip-l"><div><div class="chip-name">JavaScript</div><div class="chip-sub">DOM · events · fetch</div></div></div>
+        <div class="chip-r"><div class="meter" data-level="2"></div><span class="state run">Running</span></div>
+      </div>
+      <div class="chip">
+        <div class="chip-l"><div><div class="chip-name">Git · GitHub</div><div class="chip-sub">version control</div></div></div>
+        <div class="chip-r"><div class="meter" data-level="2"></div><span class="state run">Running</span></div>
+      </div>
+      <div class="chip">
+        <div class="chip-l"><div><div class="chip-name">Figma</div><div class="chip-sub">ui · prototyping</div></div></div>
+        <div class="chip-r"><div class="meter" data-level="3"></div><span class="state run">Running</span></div>
+      </div>
+      <div class="chip">
+        <div class="chip-l"><div><div class="chip-name">Linux · Ubuntu</div><div class="chip-sub ru">базовый шелл · VPS</div><div class="chip-sub en">basic shell · VPS</div></div></div>
+        <div class="chip-r"><div class="meter" data-level="1"></div><span class="state train">Training</span></div>
+      </div>
+    </div>
+
+    <!-- foundations -->
+    <div class="sgroup">
+      <div class="sgroup-label"><span class="ru">Фундамент</span><span class="en">Foundations</span></div>
+      <div class="sgroup-note ru">под нейросети</div><div class="sgroup-note en">for the nets</div>
+      <div class="chip">
+        <div class="chip-l"><div><div class="chip-name"><span class="ru">Линейная алгебра</span><span class="en">Linear algebra</span></div><div class="chip-sub ru">векторы · матрицы</div><div class="chip-sub en">vectors · matrices</div></div></div>
+        <div class="chip-r"><div class="meter" data-level="1"></div><span class="state train">Training</span></div>
+      </div>
+      <div class="chip">
+        <div class="chip-l"><div><div class="chip-name"><span class="ru">Матанализ</span><span class="en">Calculus</span></div><div class="chip-sub ru">производные · градиенты</div><div class="chip-sub en">derivatives · gradients</div></div></div>
+        <div class="chip-r"><div class="meter" data-level="1"></div><span class="state train">Training</span></div>
+      </div>
+      <div class="chip">
+        <div class="chip-l"><div><div class="chip-name"><span class="ru">Вероятность</span><span class="en">Probability</span></div><div class="chip-sub ru">распределения · статистика</div><div class="chip-sub en">distributions · stats</div></div></div>
+        <div class="chip-r"><div class="meter" data-level="0"></div><span class="state queue">Queued</span></div>
+      </div>
+      <div class="chip">
+        <div class="chip-l"><div><div class="chip-name"><span class="ru">Алгоритмы</span><span class="en">Algorithms</span></div><div class="chip-sub ru">структуры данных</div><div class="chip-sub en">data structures</div></div></div>
+        <div class="chip-r"><div class="meter" data-level="1"></div><span class="state train">Training</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="sec">
+  <div class="head reveal">
+    <div class="eyebrow"><span class="ru">Мои работы</span><span class="en">My work</span></div>
+    <h2 class="title">Pro<span class="o">jects</span></h2>
+    <p class="lede ru">Слева — то, что уже задеплоено на JavaScript. Справа — Python-эксперименты, которые в разработке: запускаю их по мере того, как тяну ML.</p>
+    <p class="lede en">Shipped JavaScript work, plus Python experiments that are still in development — spinning them up as I ramp into ML.</p>
+  </div>
+
+  <div class="tabs reveal" id="tabs" role="tablist">
+    <button class="tab active" type="button" data-filter="all" role="tab"><span class="ru">Все</span><span class="en">All</span><span class="ct" data-count="all"></span></button>
+    <button class="tab" type="button" data-filter="js" role="tab">JavaScript<span class="ct" data-count="js"></span></button>
+    <button class="tab" type="button" data-filter="py" role="tab">Python<span class="ct" data-count="py"></span></button>
+  </div>
+
+  <div class="pgrid reveal" id="pgrid"></div>
+</section>
+
+<!-- MODELS -->
+<section id="models" class="sec">
+  <div class="head reveal">
+    <div class="eyebrow">model zoo · <span class="ru">Модели</span><span class="en">Models</span></div>
+    <h2 class="title">Mod<span class="o">els</span></h2>
+    <p class="lede ru">Архитектуры, которые планирую освоить — по нарастающей сложности. От весов и градиентного спуска до внимания.</p>
+    <p class="lede en">Architectures I plan to learn, increasing in complexity — from weights and gradient descent up to attention.</p>
+  </div>
+
+  <div class="mgrid reveal" id="mgrid"></div>
+</section>
+
+<!-- PATH -->
+<section id="path" class="sec">
+  <div class="head reveal">
+    <div class="eyebrow">training run · <span class="ru">Путь</span><span class="en">Path</span></div>
+    <h2 class="title">Pa<span class="o">th</span></h2>
+    <p class="lede ru">Прогресс как кривая обучения: loss — это расстояние до цели. Чем дальше иду, тем ниже.</p>
+    <p class="lede en">Progress as a training curve: loss is the distance to the goal. The further I go, the lower it drops.</p>
+  </div>
+
+  <div class="path-wrap">
+    <div class="curve-box reveal">
+      <div class="curve-y">↑ loss / <span class="ru">расстояние до цели</span><span class="en">distance to goal</span></div>
+      <svg id="curve" viewBox="0 0 600 280" preserveAspectRatio="none" style="width:100%;height:auto;display:block" aria-hidden="true">
+        <defs>
+          <linearGradient id="gline" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#7c4dbe"/>
+            <stop offset="35%" stop-color="#3f7fb0"/>
+            <stop offset="65%" stop-color="#1f9e8f"/>
+            <stop offset="100%" stop-color="#a7e34d"/>
+          </linearGradient>
+          <linearGradient id="gfill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="rgba(31,158,143,0.18)"/>
+            <stop offset="100%" stop-color="rgba(31,158,143,0)"/>
+          </linearGradient>
+        </defs>
+        <!-- area under curve -->
+        <path id="curveFill" d="M30,40 C120,55 150,150 230,165 C300,178 320,205 410,220 C480,232 520,245 575,250 L575,260 L30,260 Z" fill="url(#gfill)" opacity="0"/>
+        <!-- the loss line -->
+        <path id="curveLine" d="M30,40 C120,55 150,150 230,165 C300,178 320,205 410,220 C480,232 520,245 575,250" fill="none" stroke="url(#gline)" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- milestone points -->
+        <g id="curveDots"></g>
+      </svg>
+      <div class="curve-axis"><span>epoch 0</span><span class="ru">время →</span><span class="en">time →</span></div>
+    </div>
+
+    <div class="milestones reveal">
+      <div class="ms">
+        <span class="ms-ep">e0</span>
+        <div><div class="ms-name">HTML &amp; CSS</div><div class="ms-sub ru">верстка, Flexbox, Grid, анимации</div><div class="ms-sub en">layout, Flexbox, Grid, animations</div></div>
+        <span class="ms-badge done"><span class="ru">Готово</span><span class="en">Done</span></span>
+      </div>
+      <div class="ms">
+        <span class="ms-ep">e1</span>
+        <div><div class="ms-name">JavaScript</div><div class="ms-sub ru">DOM, события, async, API</div><div class="ms-sub en">DOM, events, async, API</div></div>
+        <span class="ms-badge now"><span class="ru">Сейчас</span><span class="en">Now</span></span>
+      </div>
+      <div class="ms">
+        <span class="ms-ep">e2</span>
+        <div><div class="ms-name"><span class="ru">Основы Python</span><span class="en">Python basics</span></div><div class="ms-sub ru">синтаксис, скрипты, сети</div><div class="ms-sub en">syntax, scripts, networking</div></div>
+        <span class="ms-badge next"><span class="ru">Следующее</span><span class="en">Next</span></span>
+      </div>
+      <div class="ms">
+        <span class="ms-ep">e3</span>
+        <div><div class="ms-name"><span class="ru">Математика</span><span class="en">Math foundations</span></div><div class="ms-sub ru">линал, матан, вероятность</div><div class="ms-sub en">linear algebra, calculus, probability</div></div>
+        <span class="ms-badge next"><span class="ru">Параллельно</span><span class="en">Parallel</span></span>
+      </div>
+      <div class="ms">
+        <span class="ms-ep">e4</span>
+        <div><div class="ms-name"><span class="ru">ML / Нейросети</span><span class="en">ML / Neural networks</span></div><div class="ms-sub ru">от регрессии до трансформеров</div><div class="ms-sub en">from regression to transformers</div></div>
+        <span class="ms-badge goal"><span class="ru">Цель</span><span class="en">Goal</span></span>
+      </div>
+      <div class="ms">
+        <span class="ms-ep">e5</span>
+        <div><div class="ms-name"><span class="ru">Релокация в Европу</span><span class="en">Relocate to Europe</span></div><div class="ms-sub">Russia → Belgrade → EU</div></div>
+        <span class="ms-badge goal"><span class="ru">Цель</span><span class="en">Goal</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="sec">
+  <div class="contact-wrap">
+    <div>
+      <div class="head reveal" style="margin-bottom:24px">
+        <div class="eyebrow"><span class="ru">Напишите мне</span><span class="en">Get in touch</span></div>
+        <h2 class="title">Con<span class="o">tact</span></h2>
+      </div>
+      <p class="lede reveal ru" style="margin-bottom:4px">Открыт к работе, фрилансу и сотрудничеству. Отвечаю быстро.</p>
+      <p class="lede reveal en" style="margin-bottom:4px">Open to jobs, freelance and collaboration. I reply fast.</p>
+      <div class="status-card reveal">
+        <span class="d" aria-hidden="true"></span>
+        <span class="t">Open to Work</span>
+      </div>
+      <div class="clinks reveal">
+        <a href="https://t.me/ChrisRedfield48" target="_blank" rel="noopener noreferrer" class="clink">
+          <span class="clink-l"><span class="cl-ic" aria-hidden="true">TG</span><span><span class="cl-t">Telegram</span><span class="cl-s">t.me/ChrisRedfield48</span></span></span>
+          <span class="cl-arr" aria-hidden="true">→</span>
+        </a>
+        <a href="https://github.com/ChrisRedfield48" target="_blank" rel="noopener noreferrer" class="clink">
+          <span class="clink-l"><span class="cl-ic" aria-hidden="true">GH</span><span><span class="cl-t">GitHub</span><span class="cl-s">github.com/ChrisRedfield48</span></span></span>
+          <span class="cl-arr" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="info reveal">
+      <div class="info-label"><span class="ru">Статус</span><span class="en">Status</span></div>
+      <div class="info-row"><span class="info-k ru">Доступность</span><span class="info-k en">Availability</span><span class="info-v green">Open to Work</span></div>
+      <div class="info-row"><span class="info-k ru">Локация</span><span class="info-k en">Location</span><span class="info-v">Russia → Belgrade</span></div>
+      <div class="info-row"><span class="info-k">Timezone</span><span class="info-v">UTC+3</span></div>
+      <div class="info-row"><span class="info-k ru">Формат</span><span class="info-k en">Format</span><span class="info-v ru">Удалённо</span><span class="info-v en">Remote</span></div>
+      <div class="info-row"><span class="info-k ru">Сейчас</span><span class="info-k en">Right now</span><span class="info-v acc">JavaScript → Python</span></div>
+      <div class="info-row"><span class="info-k ru">Релокация</span><span class="info-k en">Relocation</span><span class="info-v acc ru">Планируется</span><span class="info-v acc en">Planned</span></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <span class="fcopy">© <span id="year">2026</span> Nikita Ip · NIP//latent</span>
+  <span class="fnote">built with <span style="color:var(--teal)">html · css · js</span> — next: python</span>
+</footer>
+
+<script src="script.js" defer></script>
+</body>
+</html>
