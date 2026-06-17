@@ -7,40 +7,15 @@
   const esc = (s) => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
   const projects = [
-    { cat:'js', status:'shipped', title:'NIP.SYS v2', icon:'[ os ]',
-      desc:'Прошлая версия портфолио в стиле ОС. Сайдбар, GitHub-статистика.',
-      tags:['HTML','CSS','JS'], link:'https://chrisredfield48.github.io/nip.sys-v.02/' },
     { cat:'js', status:'shipped', title:'Projects Hub', icon:'[ ui ]',
       desc:'Витрина JS-проектов с динамическими карточками.',
       tags:['HTML','CSS','JS'], link:'https://chrisredfield48.github.io/Projects/' },
-    { cat:'js', status:'shipped', title:'Zodiac Calculator', icon:'[ fn ]',
-      desc:'Определение знака зодиака по дате рождения.',
-      tags:['JavaScript'], link:'https://chrisredfield48.github.io/zodiac/' },
-    { cat:'js', status:'shipped', title:'Birthday Search', icon:'[ fn ]',
-      desc:'Поиск дней рождения жильцов по имени.',
-      tags:['JavaScript'], link:'https://chrisredfield48.github.io/voda/' },
     { cat:'js', status:'shipped', title:'Graphic Designer', icon:'[ ux ]',
       desc:'Лендинг дизайнера. Вёрстка, UI-компоненты, адаптив.',
       tags:['HTML','CSS'], link:'https://chrisredfield48.github.io/graphic-designer/' },
     { cat:'js', status:'shipped', title:'Python Path', icon:'[ doc ]',
       desc:'Страница прогресса изучения Python. Roadmap.',
-      tags:['HTML','CSS'], link:'https://chrisredfield48.github.io/python/' },
-
-    { cat:'py', status:'dev', title:'Neural Net from Scratch', icon:'[ wip ]',
-      desc:'Полносвязная сеть на чистом NumPy: прямой проход, backprop, MNIST. Чтобы понять, как оно работает изнутри.',
-      tags:['Python','NumPy'] },
-    { cat:'py', status:'dev', title:'SOCKS5 Proxy', icon:'[ wip ]',
-      desc:'Свой прокси на asyncio для маршрутизации трафика через российский IP. VPS на Ubuntu.',
-      tags:['Python','asyncio'] },
-    { cat:'py', status:'plan', title:'Image Classifier', icon:'[ soon ]',
-      desc:'CNN на PyTorch для классификации изображений. Обучение, аугментации, метрики.',
-      tags:['Python','PyTorch','CNN'] },
-    { cat:'py', status:'plan', title:'Telegram ML Bot', icon:'[ soon ]',
-      desc:'Бот на aiogram, который дёргает обученную модель и отвечает в чат.',
-      tags:['Python','aiogram'] },
-    { cat:'py', status:'plan', title:'Data Viz Lab', icon:'[ soon ]',
-      desc:'Разбор датасетов через Pandas и Matplotlib: чистка, графики, выводы.',
-      tags:['Python','Pandas'] }
+      tags:['HTML','CSS'], link:'https://chrisredfield48.github.io/python/' }
   ];
 
   const STATUS = {
@@ -73,25 +48,7 @@
   }
 
   const pgrid = $('#pgrid');
-  function renderProjects(filter) {
-    if (!pgrid) return;
-    const list = filter === 'all' ? projects : projects.filter(p => p.cat === filter);
-    pgrid.innerHTML = list.map(projectCard).join('');
-  }
-  renderProjects('all');
-
-  $$('.ct').forEach(el => {
-    const k = el.dataset.count;
-    el.textContent = k === 'all' ? projects.length : projects.filter(p => p.cat === k).length;
-  });
-
-  $$('#tabs .tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      $$('#tabs .tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
-      tab.classList.add('active'); tab.setAttribute('aria-selected', 'true');
-      renderProjects(tab.dataset.filter);
-    });
-  });
+  if (pgrid) pgrid.innerHTML = projects.map(projectCard).join('');
 
   const SCHEM = {
     reg: `<svg class="mschem" viewBox="0 0 56 38" fill="none"><line x1="6" y1="32" x2="50" y2="8" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="28" r="2" fill="currentColor"/><circle cx="22" cy="26" r="2" fill="currentColor"/><circle cx="30" cy="18" r="2" fill="currentColor"/><circle cx="40" cy="16" r="2" fill="currentColor"/><circle cx="46" cy="10" r="2" fill="currentColor"/></svg>`,
