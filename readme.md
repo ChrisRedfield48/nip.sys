@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="banner.png" alt="НЕЙРОКОСМОС — нейросеть, затерянная в глубоком космосе" width="100%">
+<img src="assets/banner.png" alt="НЕЙРОКОСМОС — нейросеть, затерянная в глубоком космосе" width="100%">
 
 # ◉ НЕЙРОКОСМОС
 
@@ -11,7 +11,7 @@
 <img src="https://img.shields.io/badge/canvas-2D-38c5ff?style=flat-square&labelColor=060912" alt="canvas 2d">
 <img src="https://img.shields.io/badge/lang-ru-a06bff?style=flat-square&labelColor=060912" alt="russian">
 
-<b>Живой сайт →</b> <code>https://chrisredfield48.github.io/&lt;repo&gt;/</code>
+<b>Живой сайт →</b> <a href="https://chrisredfield48.github.io/nip.sys/">chrisredfield48.github.io/nip.sys</a>
 
 </div>
 
@@ -25,7 +25,7 @@
   ◉  живая нейросеть на canvas — прямой / обратный проход
   ◉  псевдо-3D глубина: узлы по depth, параллакс от курсора
   ◉  клик по пустому космосу — всплеск сигналов от ближайшего узла
-  ◉  4 секции: герой · манифест · пункт назначения · проекты · контакт
+  ◉  5 блоков: герой · манифест · пункт назначения · проекты · контакт
   ◉  prefers-reduced-motion — статичный кадр вместо анимации
   ◉  адаптив до мобилы · фокус с клавиатуры
 ```
@@ -44,11 +44,13 @@ canvas 2d — свечение через кэш-спрайты (летает и
 ## Структура
 
 ```text
-neurocosmos/
-├── index.html    разметка и весь контент
-├── style.css     палитра, типографика, панели, плашка, карточки
-├── script.js     движок сети + ui (навигация, reveal)
-└── banner.png    превью для соцсетей и шапки README
+nip.sys/
+├── index.html        разметка и весь контент
+├── style.css         палитра, типографика, панели, плашка, карточки
+├── script.js         движок сети + ui (навигация, reveal)
+└── assets/
+    ├── banner.png    превью для соцсетей и шапки README
+    └── favicon.svg   иконка вкладки
 ```
 
 ## Запуск
@@ -58,7 +60,7 @@ python3 -m http.server 8000
 # http://localhost:8000
 ```
 
-> Сайт из трёх файлов: открыть `index.html` двойным кликом обычно работает, но если через `file://` не подхватятся стили — запусти локальный сервер командой выше.
+> Статика без сборки: открыть `index.html` двойным кликом обычно работает, но если через `file://` не подхватятся стили — запусти локальный сервер командой выше.
 
 ## Как обновлять
 
@@ -95,13 +97,9 @@ python3 -m http.server 8000
 
 ## Деплой
 
-GitHub Pages: **Settings → Pages**, ветка `main`, папка `/root`. Сайт статический — пушнул и готово.
+GitHub Pages: **Settings → Pages**, ветка `main`, папка `/ (root)`. Сайт статический — пушнул и готово.
 
-Для превью в Telegram замени путь баннера на полный — в `og:image`, если добавишь мета-теги:
-
-```html
-<meta property="og:image" content="https://chrisredfield48.github.io/<repo>/banner.png">
-```
+Превью для соцсетей и Telegram уже настроено в `index.html` — Open Graph и Twitter Card, баннер подтянется автоматически. Если переименуешь репозиторий, поправь абсолютные ссылки в `index.html`: `canonical`, `og:url`, `og:image`, `twitter:image`.
 
 ---
 
