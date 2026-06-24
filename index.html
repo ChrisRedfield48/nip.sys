@@ -6,6 +6,11 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <title>НЕЙРОКОСМОС — Nikita IP</title>
     <meta
       name="description"
@@ -15,7 +20,7 @@
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#060912" />
     <link rel="canonical" href="https://chrisredfield48.github.io/nip.sys/" />
-    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ru_RU" />
@@ -60,7 +65,7 @@
   <body>
     <canvas id="space" aria-hidden="true"></canvas>
 
-    <nav>
+    <nav aria-label="Основная навигация">
       <a href="#top" class="wm"
         ><span class="d"></span>NIP<span class="sl">//</span><b>neuro</b></a
       >
@@ -199,7 +204,7 @@
               <div class="clinks">
                 <a
                   class="panel clink"
-                  href="https://t.me/ChrisRedfield49"
+                  href="https://t.me/Chris_Redfield49"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

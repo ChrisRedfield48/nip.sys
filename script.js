@@ -26,7 +26,8 @@
     nodes = [],
     edges = [],
     signals = [],
-    flares = [];
+    flares = [],
+    drawOrder = [];
   let T = 0,
     last = 0,
     raf = 0,
@@ -43,6 +44,16 @@
   let lastFwd = 0,
     lastBack = 0,
     vignette = null;
+
+  let quality = 2,
+    dprCap = 2,
+    fpsInterval = 0,
+    showNebula = true,
+    showMotes = true;
+  let nebulaSprites = [],
+    perfWindowStart = 0,
+    perfN = 0,
+    perfBad = 0;
 
   const spriteCache = {};
   function glow(hex, size) {
@@ -62,21 +73,7 @@
     return c;
   }
 
-  function layout() {
-    DPR = Math.min(window.devicePixelRatio || 1, 2);
-    W = innerWidth;
-    H = innerHeight;
-    small = W < 760;
-    cvs.width = W * DPR;
-    cvs.height = H * DPR;
-    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    CX = W / 2;
-    CY = H / 2;
-    UNIT = Math.min(W, H) * (small ? 0.3 : 0.32);
-    buildStars();
-    buildMotes();
-    buildNebula();
-    buildNet();
+  function buildVignette() {
     const vg = ctx.createRadialGradient(
       CX,
       CY,
@@ -88,6 +85,29 @@
     vg.addColorStop(0, "rgba(6,9,18,0)");
     vg.addColorStop(1, "rgba(6,9,18,0.85)");
     vignette = vg;
+  }
+  function resizeCanvas() {
+    DPR = Math.min(window.devicePixelRatio || 1, dprCap);
+    W = innerWidth;
+    H = innerHeight;
+    small = W < 760;
+    cvs.width = W * DPR;
+    cvs.height = H * DPR;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    CX = W / 2;
+    CY = H / 2;
+    UNIT = Math.min(W, H) * (small ? 0.3 : 0.32);
+    buildVignette();
+  }
+  function buildScene() {
+    buildStars();
+    buildMotes();
+    buildNebula();
+    buildNet();
+  }
+  function layout() {
+    resizeCanvas();
+    buildScene();
   }
   function buildStars() {
     stars = [];
@@ -167,6 +187,22 @@
         vy: 0.0005,
       },
     ];
+    nebulaSprites = nebula.map((nb) => {
+      const S = 256;
+      const c = document.createElement("canvas");
+      c.width = c.height = S;
+      const g = c.getContext("2d");
+      const r = S / 2;
+      const grd = g.createRadialGradient(r, r, 0, r, r, r);
+      grd.addColorStop(
+        0,
+        `rgba(${nb.col[0]},${nb.col[1]},${nb.col[2]},${nb.a})`,
+      );
+      grd.addColorStop(1, "rgba(0,0,0,0)");
+      g.fillStyle = grd;
+      g.fillRect(0, 0, S, S);
+      return c;
+    });
   }
   function buildNet() {
     const sizes = small ? [4, 6, 8, 6, 4] : [5, 8, 11, 8, 5];
@@ -215,6 +251,7 @@
       nodes[e.b].inn.push(ei);
     });
     signals = [];
+    drawOrder = nodes.slice();
   }
   function project() {
     const cy = Math.cos(rotY),
@@ -403,15 +440,15 @@
     ctx.clearRect(0, 0, W, H);
     ctx.fillStyle = C.void;
     ctx.fillRect(0, 0, W, H);
-    for (const nb of nebula) {
-      const cxp = nb.x * W + mx * 30 * nb.r,
-        cyp = nb.y * H + my * 24 * nb.r,
-        rad = nb.r * Math.max(W, H);
-      const g = ctx.createRadialGradient(cxp, cyp, 0, cxp, cyp, rad);
-      g.addColorStop(0, `rgba(${nb.col[0]},${nb.col[1]},${nb.col[2]},${nb.a})`);
-      g.addColorStop(1, "rgba(0,0,0,0)");
-      ctx.fillStyle = g;
-      ctx.fillRect(0, 0, W, H);
+    ctx.globalAlpha = 1;
+    if (showNebula) {
+      for (let i = 0; i < nebula.length; i++) {
+        const nb = nebula[i],
+          rad = nb.r * Math.max(W, H),
+          cxp = nb.x * W + mx * 30 * nb.r,
+          cyp = nb.y * H + my * 24 * nb.r;
+        ctx.drawImage(nebulaSprites[i], cxp - rad, cyp - rad, rad * 2, rad * 2);
+      }
     }
     for (const s of stars) {
       const px = s.x * W + mx * 40 * s.z,
@@ -442,8 +479,8 @@
       ctx.lineTo(b.sx, b.sy);
       ctx.stroke();
     }
-    const order = nodes.slice().sort((p, q) => p.sc - q.sc);
-    for (const n of order) {
+    drawOrder.sort((p, q) => p.sc - q.sc);
+    for (const n of drawOrder) {
       const tw = 0.7 + 0.3 * Math.sin(n.tw + T * 0.001);
       const baseR = n.size * n.sc;
       const hr = baseR * (3.4 + n.act * 4);
@@ -492,11 +529,13 @@
       ctx.fill();
     }
     ctx.globalAlpha = 1;
-    for (const m of motes) {
-      const px = m.x * W + mx * 70 * m.z,
-        py = m.y * H + my * 55 * m.z;
-      ctx.globalAlpha = m.a;
-      ctx.drawImage(glow(m.col, 128), px - m.r, py - m.r, m.r * 2, m.r * 2);
+    if (showMotes) {
+      for (const m of motes) {
+        const px = m.x * W + mx * 70 * m.z,
+          py = m.y * H + my * 55 * m.z;
+        ctx.globalAlpha = m.a;
+        ctx.drawImage(glow(m.col, 128), px - m.r, py - m.r, m.r * 2, m.r * 2);
+      }
     }
     ctx.globalAlpha = 1;
     for (const f of flares) {
@@ -520,9 +559,24 @@
       last = now;
       return;
     }
+    if (fpsInterval && now - last < fpsInterval - 1) return;
     let dt = (now - last) / 1000;
     last = now;
     if (dt > 0.05) dt = 0.05;
+    if (quality > 0 && now >= perfWindowStart) {
+      perfN++;
+      const span = now - perfWindowStart;
+      if (span >= 1000) {
+        const fps = (perfN / span) * 1000;
+        if (fps < (quality === 2 ? 50 : 40)) {
+          if (++perfBad >= 2) applyQuality(quality - 1);
+        } else {
+          perfBad = 0;
+        }
+        perfWindowStart = now;
+        perfN = 0;
+      }
+    }
     if (now - lastFwd > 1700) {
       lastFwd = now;
       spawnForward();
@@ -534,43 +588,79 @@
     step(dt);
     draw();
   }
+  function applyQuality(q) {
+    if (q === quality) return;
+    quality = q;
+    if (q <= 1) {
+      dprCap = 1;
+      showMotes = false;
+      document.documentElement.classList.add("lite");
+    }
+    if (q <= 0) {
+      showNebula = false;
+      fpsInterval = 1000 / 30;
+    }
+    resizeCanvas();
+    perfWindowStart = last + 800;
+    perfN = 0;
+    perfBad = 0;
+  }
   function start() {
     if (running) return;
     running = true;
     last = performance.now();
     lastFwd = last;
     lastBack = last - 2600;
+    perfWindowStart = last + 1200;
+    perfN = 0;
+    perfBad = 0;
     spawnForward();
     raf = requestAnimationFrame(frame);
   }
 
+  let lastW = innerWidth;
+  let resizeTimer = 0;
   addEventListener(
     "resize",
     () => {
-      layout();
-      if (reduce) {
-        project();
-        draw();
-      }
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        const widthChanged = innerWidth !== lastW;
+        lastW = innerWidth;
+        resizeCanvas();
+        if (widthChanged) buildScene();
+        if (reduce) {
+          project();
+          draw();
+        }
+      }, 150);
     },
     { passive: true },
   );
   document.addEventListener("visibilitychange", () => {
     hidden = document.hidden;
+    if (!hidden) {
+      last = performance.now();
+      perfWindowStart = last + 500;
+      perfN = 0;
+      perfBad = 0;
+    }
   });
-  if (fine)
-    addEventListener(
-      "mousemove",
-      (e) => {
-        tmx = (e.clientX / innerWidth - 0.5) * 2;
-        tmy = (e.clientY / innerHeight - 0.5) * 2;
-      },
-      { passive: true },
-    );
-  addEventListener("click", (e) => {
-    if (e.target.closest("a, nav, .panel, .card")) return;
-    burst(e.clientX, e.clientY);
-  });
+  if (!reduce) {
+    if (fine)
+      addEventListener(
+        "mousemove",
+        (e) => {
+          tmx = (e.clientX / innerWidth - 0.5) * 2;
+          tmy = (e.clientY / innerHeight - 0.5) * 2;
+        },
+        { passive: true },
+      );
+    addEventListener("click", (e) => {
+      if (e.target.closest("a, nav, .panel, .card")) return;
+      burst(e.clientX, e.clientY);
+    });
+  }
 
   layout();
   if (reduce) {
