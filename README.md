@@ -69,11 +69,21 @@ python3 -m http.server 8000
 Карточка проекта: заголовок, описание, теги, ссылка.
 
 ```html
-<a class="panel card rv" href="https://..." target="_blank" rel="noopener noreferrer">
-  <div class="card-top"><span class="idx">01</span><span class="stat"><span class="d"></span>задеплоено</span></div>
+<a
+  class="panel card rv"
+  href="https://..."
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <div class="card-top">
+    <span class="idx">01</span
+    ><span class="stat"><span class="d"></span>задеплоено</span>
+  </div>
   <h3>Название</h3>
   <p>Короткое описание.</p>
-  <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span></div>
+  <div class="tags">
+    <span class="tag">HTML</span><span class="tag">CSS</span>
+  </div>
   <span class="open">открыть <span aria-hidden="true">→</span></span>
 </a>
 ```
